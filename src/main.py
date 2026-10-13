@@ -1,27 +1,42 @@
-import tobase64 as tb
+import tobase64_algo as tba
+import file_handler as fh
 
 def main():
     print("=" * 40)
     print("       CUSTOM BASE64 ENCODER")
     print("=" * 40)
 
-    dirty_string = input("Enter text to encode: ")
-    string = "".join(dirty_string.split())
-    to_ascii = [ord(char) for char in string]
+    print("1. Encode text")
+    print("2. Encode file")
+    print("3. Decode text")
+    print("4. Decode file")
+    option = int(input("Type your option:"))
+    match option:
+        case 1:
+            string = input("Type text to encode: ")
+            arr = tba.string_to_bytes(string)
+            print(tba.encode(arr))
+        case 2:
+            path = input("Type the path: ")
+            arr = fh.read_from_file(path)
+            s = tba.encode(arr)
+            with open("Output.txt", "w") as file:
+                file.write(s)
+        case 3:
+            string = input("Type text to decode: ")
+            print(tba.get_from_encoded_string(string))
+        case 4:
+            path = input("Type the path: ")
 
-    rest = len(string) % 3
-    equal_chars = (3 - rest) % 3
-    amount_add =(6 - 2*rest) % 6
+        case _:
+            print("Invalid option")
+            return
 
-    initial_array = tb.get_array_ascii(to_ascii,amount_add)
-    base_arr = tb.get_array_base64(initial_array)
-    encoded_string = tb.get_encoded_string(base_arr)
-    encoded_string += "=" * equal_chars
 
-    print("\nEncoded result:")
-    print("-" * 40)
-    print(encoded_string)
-    print("-" * 40)
+   # print("\nEncoded result:")
+   # print("-" * 40)
+    #print(encoded_string)
+    #print("-" * 40)
 
 if __name__ == "__main__":
     main()
