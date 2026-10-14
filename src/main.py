@@ -24,9 +24,11 @@ def main():
                 file.write(s)
         case 3:
             string = input("Type text to decode: ")
-            print(tba.get_from_encoded_string(string))
+            arr = tba.get_from_encoded_string(string)
+            res = tba.decode(arr)
+            print(res)
         case 4:
-            path = input("Type the path: ")
+           path = input("Type the path: ")
 
         case _:
             print("Invalid option")

@@ -47,6 +47,37 @@ def get_from_encoded_string(s):
             if x == "=": continue
     return arr
 
+def to_bits(arr):
+    bits = list()
+    num = 0
 
+    for x in arr:
+        cur_bits = list()
+        for i in range(6):
+            cur_bits.append(x%2)
+            x = math.floor(x/2)
+        cur_bits.reverse()
+        bits.extend(cur_bits)
+
+    cut_zero = len(bits) % 8
+    for i in range(cut_zero):
+        bits.pop()
+
+    return bits
+
+def decode(init_arr):
+    data = to_bits(init_arr)
+    array_nums = list()
+
+    for i in range(len(data)//8):
+        num = 0
+        for j in range(8):
+            num+= data[i*8 + j] * 2**(7-j)
+        array_nums.append(num)
+
+    decoded_bytes = bytes(array_nums)
+    result = decoded_bytes.decode("utf-8",errors="ignore")
+
+    return result
 
 
