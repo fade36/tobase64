@@ -38,7 +38,7 @@ def encode(data):
     padding = "=" * ((3 - data_len % 3) % 3)
     return "".join(encoded_chars) + padding
 
-def get_from_encoded_string(s):
+def from_base64(s):
     arr = list()
     for x in s:
         for i in range(len(base64_table)):
@@ -76,7 +76,6 @@ def to_bytes(arr):
 def decode(byte_arr):
     decoded_bytes = bytes(byte_arr)
     result = decoded_bytes.decode("utf-8",errors="ignore")
-
     return result
 
 

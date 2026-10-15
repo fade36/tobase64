@@ -2,6 +2,10 @@ def read_from_file(path):
     with open(path, "rb") as file:
         return list(file.read())
 
+def output_encoded(s):
+    with open("Output.txt", "w") as file:
+        file.write(s)
+
 def read_encoded_file(path):
     with open(path, "r") as file:
         return file.read()

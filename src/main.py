@@ -16,27 +16,30 @@ def main():
     print("4. Decode file")
 
     option = int(input("Type your option:"))
+
     match option:
         case 1:
             string = input("Type text to encode: ")
-            arr = tba.string_to_bytes(string)
-            print(tba.encode(arr))
+            bytes_arr = tba.string_to_bytes(string)
+            print(tba.encode(bytes_arr))
+
         case 2:
             path = input("Type the path: ")
-            arr = fh.read_from_file(path)
-            s = tba.encode(arr)
-            with open("Output.txt", "w") as file:
-                file.write(s)
+            bytes_arr = fh.read_from_file(path)
+            encoded_res = tba.encode(bytes_arr)
+            fh.output_encoded(encoded_res)
+
         case 3:
             string = input("Type text to decode: ")
-            arr = tba.get_from_encoded_string(string)
-            bytes_arr = tba.to_bytes(arr)
+            from_base = tba.from_base64(string)
+            bytes_arr = tba.to_bytes(from_base)
             res = tba.decode(bytes_arr)
             print(res)
+
         case 4:
             path = input("Type the path: ") # .txt
             s = fh.read_encoded_file(path)
-            temp_arr = tba.get_from_encoded_string(s)
+            temp_arr = tba.from_base64(s)
             bytes_arr = tba.to_bytes(temp_arr)
 
             if png == bytes_arr[:len(png)]:
@@ -48,10 +51,10 @@ def main():
             else:
                 res = tba.decode(bytes_arr)
                 fh.output_txt(res)
-
         case _:
             print("Invalid option")
             return
+
 
 if __name__ == "__main__":
     main()
